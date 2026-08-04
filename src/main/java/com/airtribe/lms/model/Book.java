@@ -58,6 +58,7 @@ public class Book {
         if(status == null){
             this.status = Status.AVAILABLE;
             return;
+
         }
         this.status = status;
     }
