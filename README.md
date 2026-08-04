@@ -1,21 +1,13 @@
-1. Project Overview
-
-Explain what the project does.
-
-Example:
-
+**Project Overview**
 The Library Management System is a Java-based application designed to help librarians manage books, patrons, and lending operations. The system supports book inventory management, patron registration, book checkout/return workflows, and borrowing history tracking.
-
-Mention:
-
 Language: Java
-Concepts demonstrated:
+**Concepts demonstrated:**
 Object-Oriented Programming
 SOLID Principles
 Design Patterns
 Java Collections
 Logging
-2. Features
+**Features**
 Core Features
 Book Management
 Add new books
