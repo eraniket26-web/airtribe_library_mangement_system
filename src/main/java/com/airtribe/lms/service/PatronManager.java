@@ -28,7 +28,6 @@ public class PatronManager {
 
   }
 
-
   public void updatePatron(Patron patron){
       validatePatron(patron);
       Patron existingPatron = library.findPatron(patron.getId());
