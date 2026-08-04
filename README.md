@@ -30,3 +30,108 @@ Borrow date
 Due date
 Return date
 Maintain available/borrowed book status
+
+
++----------------------+
+|       Library        |
++----------------------+
+| - books: List<Book>  |
+| - patrons: List<Patron> |
+| - loans: List<Loan>  |
++----------------------+
+| + addBook()          |
+| + removeBook()       |
+| + updateBook()       |
+| + addPatron()        |
+| + addLoan()          |
+| + findBook()         |
+| + findPatron()       |
++----------------------+
+          |
+          | 1
+          |
+          | manages
+          |
+          | *
++----------------------+
+|        Book          |
++----------------------+
+| - bookId: String     |
+| - title: String      |
+| - author: String     |
+| - isbn: String       |
+| - publicationYear:int|
+| - status: Status     |
++----------------------+
+| + updateStatus()     |
++----------------------+
+          |
+          | 1
+          |
+          | borrowed through
+          |
+          | *
++----------------------+
+|        Loan          |
++----------------------+
+| - loanId: String     |
+| - borrowDate: Date   |
+| - dueDate: Date      |
+| - returnDate: Date   |
+| - status: LoanStatus |
++----------------------+
+| + returnBook()       |
+| + isActive()         |
++----------------------+
+          |
+          | *
+          |
+          | belongs to
+          |
+          | 1
++----------------------+
+|       Patron         |
++----------------------+
+| - id: String         |
+| - name: String       |
+| - email: String      |
+| - phoneNumber:String |
+| - history: List<Loan>|
+| - currentLoans:List<Loan>|
++----------------------+
+| + addLoan()          |
+| + removeLoan()       |
++----------------------+
+
+
+
++----------------------+
+|   LendingService     |
++----------------------+
+| - library: Library   |
++----------------------+
+| + checkoutBook()     |
+| + returnBook()       |
++----------------------+
+          |
+          | uses
+          |
+          v
+       Library
+
+
+
++----------------------+
+|   PatronManager      |
++----------------------+
+| - library: Library   |
++----------------------+
+| + addPatron()        |
+| + updatePatron()     |
+| + getHistory()       |
++----------------------+
+          |
+          | uses
+          |
+          v
+       Library
