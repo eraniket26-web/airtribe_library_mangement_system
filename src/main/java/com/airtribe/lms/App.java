@@ -1,4 +1,4 @@
-package org.spring.maven;
+package com.airtribe.lms;
 
 /**
  * Hello world!
