@@ -9,12 +9,12 @@ public class Book {
     private int publicationYear;
     private Status status;
 
-    public Book(String title, String author, String isbn, int publicationYear, Status status) {
+    public Book(String title, String author, String isbn, int publicationYear) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.publicationYear = publicationYear;
-        this.status = status;
+        this.status = Status.AVAILABLE; // Default status when a book is created
     }
 
 

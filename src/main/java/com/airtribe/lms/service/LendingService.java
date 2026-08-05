@@ -63,7 +63,7 @@ public class LendingService implements LendingBook {
 
         if (book == null || patron == null) {throw new IllegalArgumentException("Book and Patron cannot be null");}
         // Checking if the book is currently borrowed
-         Loan loan = library.getLoanByBookId(book.getBookId());
+         Loan loan = library.getLoanByBookId(book.getIsbn());
         if (loan == null) {
             logger.warn("No active loan found for book {}", book.getIsbn());
             throw new BookNotFoundException("Active loan not found");

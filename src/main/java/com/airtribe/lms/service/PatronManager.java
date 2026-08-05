@@ -53,7 +53,7 @@ public class PatronManager {
                 .findFirst().orElse(null);
       if(patron != null){
           for(Loan loan : patron.getBorrowedBooks()){
-             logger.info("Book: {},); Borrowed Date: {}, Due Date: {}, Return Date: {}",
+             logger.info("Book: {},; Borrowed Date: {}, Due Date: {}, Return Date: {}",
                      loan.getBook().getTitle(),
                      loan.getBorrowedDate(),
                      loan.getDueDate(),
