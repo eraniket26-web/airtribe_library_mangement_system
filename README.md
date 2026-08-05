@@ -135,3 +135,8 @@ Maintain available/borrowed book status
           |
           v
        Library
+
+
+Below points are important
+
+a) For lending process you need patron id which starts with 'PAT0001' b) Each book will have unique id and isbn number to it mostly you need isbn number to query data for book or lending process , for demo you can use '978-0132350884'
