@@ -1,6 +1,7 @@
 package com.airtribe.lms.model;
 
 public class Person {
+
     private String name;
     private String email;
     private long phoneNumber;

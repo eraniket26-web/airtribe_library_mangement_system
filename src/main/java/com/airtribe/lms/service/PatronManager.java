@@ -20,28 +20,13 @@ public class PatronManager {
   }
 
 
+
   public void addPatron(Patron patron){
       validatePatron(patron);
       patron.setId(PatronIdGenerator.generateNextPatronId());
       library.savePatron(patron);
       logger.info("Patron added successfully. Id: {}", patron.getId());
 
-  }
-
-  public void updatePatron(Patron patron){
-      validatePatron(patron);
-      Patron existingPatron = library.findPatron(patron.getId());
-      if(existingPatron == null){
-          logger.error("Patron with id {} not found", patron.getId());
-          throw new IllegalArgumentException("Patron not found");
-      }
-
-      existingPatron.setName(patron.getName());
-      existingPatron.setEmail(patron.getEmail());
-      existingPatron.setPhoneNumber(patron.getPhoneNumber());
-
-      logger.info("Patron updated successfully. Id: {}", patron.getId());
-      library.updatePatron(patron);
   }
 
   public void showPatronBorrowedHistory(String patronId){
@@ -52,7 +37,7 @@ public class PatronManager {
                 .findFirst().orElse(null);
       if(patron != null){
           for(Loan loan : patron.getBorrowedBooks()){
-             logger.info("Book: {},); Borrowed Date: {}, Due Date: {}, Return Date: {}",
+             logger.info("Book: {},; Borrowed Date: {}, Due Date: {}, Return Date: {}",
                      loan.getBook().getTitle(),
                      loan.getBorrowedDate(),
                      loan.getDueDate(),

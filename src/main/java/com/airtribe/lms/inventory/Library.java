@@ -5,7 +5,7 @@ import com.airtribe.lms.model.Book;
 import com.airtribe.lms.model.Loan;
 import com.airtribe.lms.model.Patron;
 import com.airtribe.lms.model.Status;
-import com.airtribe.lms.utility.BookIdGenerator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +30,11 @@ public class Library {
     }
 
     private void loadSampleBooks() {
-        books.add(new Book("Clean Code", "Robert C. Martin", "978-0132350884", 2008, Status.AVAILABLE));
-        books.add(new Book("Effective Java", "Joshua Bloch", "978-0134685991", 2018,Status.AVAILABLE));
-        books.add(new Book("Design Patterns", "Erich Gamma", "978-0201633610", 1994,Status.AVAILABLE));
-        books.add(new Book("The Pragmatic Programmer", "Andrew Hunt", "978-0201616224", 1999,Status.AVAILABLE));
-        books.add(new Book("Head First Design Patterns", "Eric Freeman", "978-0596007126", 2004,Status.AVAILABLE));
+        books.add(new Book("Clean Code", "Robert C. Martin", "978-0132350884", 2008));
+        books.add(new Book("Effective Java", "Joshua Bloch", "978-0134685991", 2018));
+        books.add(new Book("Design Patterns", "Erich Gamma", "978-0201633610", 1994));
+        books.add(new Book("The Pragmatic Programmer", "Andrew Hunt", "978-0201616224", 1999));
+        books.add(new Book("Head First Design Patterns", "Eric Freeman", "978-0596007126", 2004));
     }
 
 
@@ -56,7 +56,7 @@ public class Library {
         boolean removed = books.removeIf(b -> b.getIsbn().equals(book.getIsbn()));
 
         if (!removed) {
-            logger.error("Book with ISBN {} not found", book.getIsbn());
+            logger.error(ISBN_NOT_FOUND, book.getIsbn());
             throw new BookNotFoundException(String.format(BOOK_NOT_FOUND, book.getIsbn()));
         }
 
@@ -94,9 +94,9 @@ public class Library {
         }
 
        return books.stream()
-                .filter(book -> book.getIsbn().equalsIgnoreCase(query) ||
-                        book.getTitle().equalsIgnoreCase(query) ||
-                        book.getAuthor().equalsIgnoreCase(query))
+                .filter(book -> book.getIsbn().contains(query) ||
+                        book.getTitle().contains(query) ||
+                        book.getAuthor().contains(query))
                 .collect(Collectors.toList());
 
     }
@@ -177,15 +177,30 @@ public class Library {
 
     }
 
-    public Loan getLoanByBookId(String bookId){
-        logger.info("Searching for loan with book ID {}", bookId);
+    public Loan getLoanByBookId(String bookIsbn){
+        logger.info("Searching for loan with book ID {}", bookIsbn);
         return loans.stream()
-                .filter(loan -> loan.getBook().getBookId().equalsIgnoreCase(bookId))
+                .filter(loan -> loan.getBook().getIsbn().equalsIgnoreCase(bookIsbn))
                 .findFirst()
                 .orElseThrow(() -> {
-                    logger.error("Loan with book ID {} not found", bookId);
-                    return new IllegalArgumentException("Loan with book ID " + bookId + " not found");
+                    logger.error("Loan with book ID {} not found", bookIsbn);
+                    return new IllegalArgumentException("Loan with book ID " + bookIsbn + " not found");
                 });
     }
 
+    public Book findBookByISBN(String isbn) {
+        logger.info("Searching for book with ISBN {}", isbn);
+        return books.stream()
+                .filter(book -> book.getIsbn().equalsIgnoreCase(isbn))
+                .findFirst()
+                .orElseThrow(() -> {
+                    logger.error(ISBN_NOT_FOUND, isbn);
+                    return new IllegalArgumentException(String.format(BOOK_NOT_FOUND, isbn));
+                });
+    }
+
+
+    public List<Book> getBooks() {
+        return Collections.unmodifiableList(books);
+    }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Patron extends Person {
 
-    private String patronId;
 
+    private String patronId;
     private List<Loan> borrowedBooks;
     private List<Loan> currentBorrowedBooks;
 
@@ -14,9 +14,7 @@ public class Patron extends Person {
 
     public Patron(String name,
                   String email,
-                  long phoneNumber,
-                  List<Loan> borrowedBooks,
-                  List<Loan> currentBorrowedBooks) {
+                  long phoneNumber) {
 
         super(name, email, phoneNumber);
         this.borrowedBooks = new ArrayList<>();
